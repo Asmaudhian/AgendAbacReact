@@ -30,7 +30,8 @@ export default class HomeScreen extends React.Component {
     this.unsubscribe = null;
     this.state = {
       isLoading: true,
-      delivery: {}
+      delivery: {},
+      date: undefined
     };
     console.ignoredYellowBox = [
       'Setting a timer'
@@ -75,7 +76,14 @@ export default class HomeScreen extends React.Component {
     // this.getUserData(1);
     // this.createDelivery(4, '222 rue du jardin public, 33300 Bordeaux', 'Barbe', 1569849465, 45);
     this.getDelivery();
+    this.setDate();
     // this.writeUserData(2, 'User', 'user@user.com', false);
+  }
+
+  setDate(){
+    setInterval(() => {
+      this.setState({date: moment().format('dddd D MMMM hh:mm:ss')})
+    }, 1000);
   }
 
   render() {
@@ -83,7 +91,7 @@ export default class HomeScreen extends React.Component {
       <View style={styles.container}>
         <View style={styles.statusBar} />
         <ScrollView style={styles.container} contentContainerStyle={styles.contentContainer}>
-          <Text style={styles.appTitle} >{moment().format('LLLL')}</Text>
+          <Text style={styles.appTitle} >{this.state.date}</Text>
           {Object.keys(this.state.delivery).map(id => <DeliveryCard key={id} delivery={this.state.delivery[id]}></DeliveryCard>)}
         </ScrollView>
         {/* 

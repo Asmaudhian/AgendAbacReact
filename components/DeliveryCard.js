@@ -36,7 +36,7 @@ export default class DeliveryCard extends Component {
     }
 
     render() {
-        console.log(this.props.delivery)
+        // console.log(this.props.delivery)
         return (
             <View>
                 <Card>
