@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Platform, StyleSheet, Text, View, Dimensions, Linking } from 'react-native';
+import { Platform, StyleSheet, Text, View, Dimensions, Linking, TouchableHighlight } from 'react-native';
 import { Header, Card, Button, Icon } from 'react-native-elements';
 import moment from 'moment';
 import 'moment/locale/fr';
@@ -22,17 +22,14 @@ export default class DeliveryCard extends Component {
         }
     }
 
-    goToAddress() {
-        const url = 'maps://app?saddr=Cupertino&San+Francisco';
-        Linking.canOpenURL(url)
-            .then((supported) => {
-                console.log(supported)
-                if (supported) {
-                    return Linking.openURL(url)
-                        .catch(() => null);
-                }
-            });
-        // Linking.openURL('maps://app?saddr=Cupertino&San+Francisco').catch((err) => console.log(err))
+    goToAddress(address) {
+        // let validAddress = encodeUri(address)
+        Linking.openURL('https://waze.com/ul?q=' + address + '&navigate=yes ');
+    }
+
+    callNumber(phone) {
+        console.log(phone)
+        Linking.openURL('tel:' + phone)
     }
 
     render() {
@@ -52,6 +49,9 @@ export default class DeliveryCard extends Component {
                                 titleStyle={styles.buttonTitle}
                                 title="APPELER"
                                 type="clear"
+                                onPress={() => {
+                                    this.callNumber(this.props.delivery.phone);
+                                }}
                                 icon={{
                                     name: "phone",
                                     size: 13,
@@ -64,7 +64,7 @@ export default class DeliveryCard extends Component {
                                 title="Y ALLER"
                                 type="clear"
                                 onPress={() => {
-                                    this.goToAddress();
+                                    this.goToAddress(this.props.delivery.address);
                                 }}
                                 icon={{
                                     name: "directions",

@@ -12,7 +12,9 @@
   },
   "dependencies": {
     "@expo/samples": "2.1.1",
+    "cross-spawn": "^6.0.5",
     "expo": "^32.0.0",
+    "expokit": "32.1.1",
     "firebase": "^5.10.0",
     "moment": "^2.24.0",
     "react": "16.5.0",
